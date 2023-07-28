@@ -1,4 +1,4 @@
-import { OMDBKey } from "./tempData.js";
+import { OMDBKey } from "./envData.js";
 
 // Static data
 const moviesStaticData = [
