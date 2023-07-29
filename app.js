@@ -1,88 +1,5 @@
+import moviesStaticData from './data/movieData.js';
 import { OMDBKey } from "./envData.js";
-
-// Static data
-const moviesStaticData = [
-    {
-        Title: 'Thor: The Dark World',
-        Year: '2013',
-        imdbID: 'tt1981115',
-        Type: 'movie',
-        // Poster: 'https://m.media-amazon.com/images/M/MV5BMTQyNzAwOTUxOF5BMl5BanBnXkFtZTcwMTE0OTc5OQ@@._V1_SX300.jpg'
-        Poster: './images/item-1.jpg',
-    },
-    {
-        Title: 'World War Z',
-        Year: '2013',
-        imdbID: 'tt0816711',
-        Type: 'movie',
-        // Poster: 'https://m.media-amazon.com/images/M/MV5BNDQ4YzFmNzktMmM5ZC00MDZjLTk1OTktNDE2ODE4YjM2MjJjXkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_SX300.jpg'
-        Poster: './images/item-2.jpg',
-    },
-    {
-        Title: 'Jurassic World',
-        Year: '2015',
-        imdbID: 'tt0369610',
-        Type: 'movie',
-        // Poster: 'https://m.media-amazon.com/images/M/MV5BNzQ3OTY4NjAtNzM5OS00N2ZhLWJlOWUtYzYwZjNmOWRiMzcyXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg'
-        Poster: './images/item-3.jpg',
-    },
-    {
-        Title: 'Scott Pilgrim vs. the World',
-        Year: '2010',
-        imdbID: 'tt0446029',
-        Type: 'movie',
-        // Poster: 'https://m.media-amazon.com/images/M/MV5BNWI5ODc4MTAtN2U2NC00ZDk3LWE3NjAtNjIyODE2YTlhYjYwXkEyXkFqcGdeQXVyOTA3ODI3NDA@._V1_SX300.jpg'
-        Poster: './images/item-4.jpg',
-    },
-    {
-        Title: 'The Lost World: Jurassic Park',
-        Year: '1997',
-        imdbID: 'tt0119567',
-        Type: 'movie',
-        // Poster: 'https://m.media-amazon.com/images/M/MV5BMDFlMmM4Y2QtNDg1ZS00MWVlLTlmODgtZDdhYjY5YjdhN2M0XkEyXkFqcGdeQXVyNTI4MjkwNjA@._V1_SX300.jpg'
-        Poster: './images/item-5.jpg',
-    },
-    {
-        Title: 'Jurassic World: Fallen Kingdom',
-        Year: '2018',
-        imdbID: 'tt4881806',
-        Type: 'movie',
-        // Poster: 'https://m.media-amazon.com/images/M/MV5BNzIxMjYwNDEwN15BMl5BanBnXkFtZTgwMzk5MDI3NTM@._V1_SX300.jpg'
-        Poster: './images/item-6.jpg',
-    },
-    {
-        Title: 'Master and Commander: The Far Side of the World',
-        Year: '2003',
-        imdbID: 'tt0311113',
-        Type: 'movie',
-        // Poster: 'https://m.media-amazon.com/images/M/MV5BZGRjM2IyM2EtZDAxYi00NTdjLTliMGYtMmRhZGUyNjRjNWYwXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg'
-        Poster: './images/item-7.jpg',
-    },
-    {
-        Title: 'The World Is Not Enough',
-        Year: '1999',
-        imdbID: 'tt0143145',
-        Type: 'movie',
-        // Poster: 'https://m.media-amazon.com/images/M/MV5BMTZiZGY5MjEtNjU3Yi00OGJmLTlkMDAtOGQ5MTY4NDAxMDE0XkEyXkFqcGdeQXVyMTUzMDUzNTI3._V1_SX300.jpg'
-        Poster: './images/item-8.jpg',
-    },
-    {
-        Title: 'The End of the F***ing World',
-        Year: '2017–2019',
-        imdbID: 'tt6257970',
-        Type: 'series',
-        // Poster: 'https://m.media-amazon.com/images/M/MV5BN2ZhNmQ2MjQtMmQzMi00YjE5LTlkMWMtMjk5YzIxMjk2NDc2XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg'
-        Poster: './images/item-9.jpg',
-    },
-    {
-        Title: 'Jurassic World Dominion',
-        Year: '2022',
-        imdbID: 'tt8041270',
-        Type: 'movie',
-        // Poster: 'https://m.media-amazon.com/images/M/MV5BOTBjMjA4NmYtN2RjMi00YWZlLTliYTktOTIwMmNkYjYxYmE1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg'
-        Poster: './images/item-10.jpg',
-    }
-];
 
 const LOCAL_STORAGE_APP_STATE_KEY = "MovieBay.AppState";
 const LOCAL_STORAGE_SINGLE_MOVIE_ID_KEY = "MovieBay.SingleMovieId";
@@ -95,6 +12,7 @@ let state = {
     searchQuery: "",
     searchResults: [],
     category: 'all',
+    sortOptions: { criteria: "default", direction: "descending" },
     isShowMoreItemsIcon: true,
     singleItemInfo: {}
 }
@@ -145,7 +63,7 @@ const singleMoviePageSearch = async () => {
 
 const searchMovies = async (searchString) => {
     // If user searches for the same query, do nothing
-    if(searchString === state.searchQuery) return;
+    if (searchString === state.searchQuery) return;
 
     // Reset state variable to default values
     state.pageNumber = 1;
@@ -167,8 +85,6 @@ const searchMovies = async (searchString) => {
     loadingContainer.innerHTML = loadingHTML;
 
     const receivedPage = await singleMoviePageSearch();
-
-    console.log("ReceivedPage ", receivedPage);
 
     // If less than 10 results were retrieved, no more result pages are available, so don't show more items icon
     if (receivedPage.length < 10) state.isShowMoreItemsIcon = false;
@@ -216,7 +132,7 @@ const searchNextMoviePage = async () => {
 }
 
 
-const displayMovieItems = (sortOption = "default") => {
+const displayMovieItems = () => {
     let movieItems = state.searchResults;
 
     // If there are no search results, display warning message
@@ -237,18 +153,14 @@ const displayMovieItems = (sortOption = "default") => {
         }
     }
 
-    // Start of changed part
-    // console.log(movieItems);
+    // Sort items in <movieItems> based on state.sortOptions
+    const [sortCriteria, sortDirection] = [state.sortOptions.criteria, state.sortOptions.direction];
+    if (sortCriteria !== "default") {
+        if (sortDirection === "descending") movieItems.sort((item1, item2) => item1[sortCriteria] <= item2[sortCriteria] ? -1 : 1);
+        else movieItems.sort((item1, item2) => item1[sortCriteria] <= item2[sortCriteria] ? 1 : -1);
+    }
 
-    // if(sortOption !== "default") {
-    //     movieItems = movieItems.sort((item1, item2) =>  item1[sortOption] < item2[sortOption]);
-    // }
-
-    // console.log(movieItems);
-
-    // End of changed part
-
-    let displayMovie = movieItems.map(item => {
+    let displayMovies = movieItems.map(item => {
         const itemHTMLString = `<article class="movie-item">
             <a class="clickable-item" href="./singlePage.html" data-id=${item.imdbID}>
                 <div class="movie-item-poster-container">
@@ -266,8 +178,8 @@ const displayMovieItems = (sortOption = "default") => {
         return itemHTMLString;
     })
 
-    displayMovie = displayMovie.join('\n');   // Join all elements together, separated by '\n'
-    resultsContainer.innerHTML = displayMovie;
+    displayMovies = displayMovies.join('\n');   // Join all elements together, separated by '\n'
+    resultsContainer.innerHTML = displayMovies;
 
     // If user is in category "all", show the "+" (more items) icon and set an observer on it to query the API for one more page of items when the icon gets into view
     if (state.isShowMoreItemsIcon && state.category === 'all') {
@@ -310,19 +222,35 @@ const displayCategoryButtons = () => {
     }
 
     let existingCategories = ['all'];
-    movieItems.forEach(item => {
+    for (let i = 0; i < movieItems.length; i++) {
+        const item = movieItems[i];
         // Gather all categories in an array 
-        if ((item.Type === "movie" || item.Type === "series") && !existingCategories.includes(item.Type)) existingCategories.push(item.Type);
-    })
+        if ((item.Type === "movie" || item.Type === "series") && !existingCategories.includes(item.Type)) {
+            existingCategories.push(item.Type);
+            // If there's already both categories in the array, stop looping for performance improvement
+            if (existingCategories.includes("movie") && existingCategories.includes("series")) break;
+        }
+    }
 
     let categoryButtons = existingCategories.map(category => {
         return (`
-            <button class="category-button" type="button" data-id=${category}>${category}</button>
+            <button class="category-button ${state.category === category ? 'category-button-active' : ''}" type="button" data-id=${category}>${category}</button>
         `)
     });
-
     categoryButtons = categoryButtons.join('\n');
-    categoriesContainer.innerHTML = categoryButtons;
+
+    const sortButtonsHTML = `
+        <div class="sort-buttons-container">
+            <button class="sort-button ${state.sortOptions.criteria === "Title" ? 'sort-button-active' : ''}" type="button" data-id="Title">
+                ${(state.sortOptions.criteria === "Title" && state.sortOptions.direction === "ascending") ? '<i class="fa-solid fa-arrow-up-z-a"></i>' : '<i class="fa-solid fa-arrow-up-a-z"></i>'}
+            </button>
+            <button class="sort-button ${state.sortOptions.criteria === "Year" ? 'sort-button-active' : ''}" type="button" data-id="Year">
+                ${(state.sortOptions.criteria === "Year" && state.sortOptions.direction === "ascending") ? '<i class="fa-solid fa-arrow-up-9-1"></i>' : '<i class="fa-solid fa-arrow-up-1-9"></i>'}
+            </button>
+        </div>
+    `;
+
+    categoriesContainer.innerHTML = categoryButtons + '\n' + sortButtonsHTML;
 
     // Only after dynamically adding the buttons to our page we can select the button elements and add a click event to them
     const filterButtons = categoriesContainer.querySelectorAll(".category-button");    // We can get the elements from the more specific selection <categoriesContainer> instead of document
@@ -332,6 +260,7 @@ const displayCategoryButtons = () => {
         state.category = event.currentTarget.dataset.id;
         window.localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));    // Update local storage state to match the new category
         displayMovieItems();
+        displayCategoryButtons();   // It's necessary to run the displayCategoryButtons again to change the look of the category buttons
     }
 
     // Filter items after clicking filter button
@@ -339,36 +268,27 @@ const displayCategoryButtons = () => {
         filterButton.addEventListener('click', (event) => displayCategoryItems(event))
     })
 
+    const sortButtons = categoriesContainer.querySelectorAll(".sort-button");
 
-     // Start of new part
+    const sortResults = (event) => {
+        const sortCriteria = event.currentTarget.dataset.id;
+        if (sortCriteria !== state.sortOptions.criteria) state.sortOptions = { criteria: sortCriteria, direction: "descending" };
+        else if (state.sortOptions.direction === "descending") state.sortOptions = { ...state.sortOptions, direction: "ascending" };
+        else state.sortOptions = { ...state.sortOptions, criteria: "default" };
 
-    // const sortButtonsHTML = `
-    //     <div>
-    //         <button class="sort-button" type="button" data-id="Title"><i class="fa-solid fa-arrow-up-a-z"></i></button>
-    //         <button class="sort-button" type="button" data-id="Year"><i class="fa-solid fa-arrow-up-1-9"></i></button>
-    //     </div>
-    // `;
+        window.localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));    // Update local storage state to match the new sort options
+        displayMovieItems();
+        displayCategoryButtons();   // It's necessary to run the displayCategoryButtons again to change the look of the sort buttons
+    }
 
-    // categoriesContainer.innerHTML = categoriesContainer.innerHTML + '\n' + sortButtonsHTML;
-
-    // const sortButtons = categoriesContainer.querySelectorAll(".sort-button");
-
-    // const sortResults = (event) => {
-    //     const sortOption = event.currentTarget.dataset.id;
-    //     displayMovieItems(sortOption);
-    // }
-
-    // sortButtons.forEach(sortButton => { 
-    //     sortButton.addEventListener('click', (event) => sortResults(event))
-    // });
-
-    // End of new part
+    sortButtons.forEach(sortButton => {
+        sortButton.addEventListener('click', (event) => sortResults(event))
+    });
 }
 
 
 const searchMovieById = async () => {
     const movieIdString = JSON.parse(window.localStorage.getItem(LOCAL_STORAGE_SINGLE_MOVIE_ID_KEY));
-    console.log(movieIdString);
 
     // If there's state data in local storage, get it before querying API
     const localStorageItem = window.localStorage.getItem(LOCAL_STORAGE_APP_STATE_KEY);
@@ -388,14 +308,12 @@ const searchMovieById = async () => {
         <i class="fas fa-spinner fa-spin"></i>
         <p>Loading...</p>
     `;
-
     loadingContainer.innerHTML = loadingHTML;
 
     const res = await fetch(finalQueryString);
     const data = await res.json();
 
     loadingContainer.innerHTML = '';
-
     state.singleItemInfo = data;
     localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));
     displaySinglePageItem();
@@ -437,7 +355,6 @@ const parseVotesNumber = (votesNumber) => {
 const displaySinglePageItem = () => {
     const item = state.singleItemInfo;
     let singleItemHTMLString;
-    console.log("item", item);
     if (item.Response === 'False') singleItemHTMLString = `<h3> Item not found </h3>`;
     else {
         let itemRuntime = item.Runtime;
@@ -544,10 +461,10 @@ window.addEventListener('DOMContentLoaded', () => {
 // TODO:
 //  https://www.youtube.com/watch?v=1VjdxCTBfUI
 // - fix all "TODO"s
-// - Add sort alphabetically and by year
 // - Style app
 //      - global: set colors correctly (dark color theme only)
 // - Maybe Diferenciate between "Too many results" and "No movies found" error (example query: "hi")
+// - Check if images in static data are being found (because of path, as new "data" folder was created)
 // - See how to deploy vanilla js app to github pages
 // - Make app responsive
 //      -  Make text in each movie item smaller even from 1200px downwards

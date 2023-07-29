@@ -302,6 +302,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     gap: 1.5rem;
 }
 
@@ -321,9 +322,54 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     transition: all .15s linear;
 }
 
-.category-button:hover {
-    background: var(--app-special-color);
+.category-button.category-button-active { 
+    /* background-color: green; */
+    color: var(--app-primary-color);
+    border: .1rem solid var(--app-primary-color);
+    box-shadow: 0 0 .35rem .075rem var(--app-primary-color);
+}
+
+.category-button:not(.category-button-active):hover {
+    /* background: var(--app-special-color);
+    color: var(--app-title-color); */
+    background: var(--app-primary-color);
     color: var(--app-title-color);
+}
+
+
+.sort-buttons-container {
+    display: flex;
+    flex-direction: row;
+    padding-left: 1rem;
+    gap: .75rem;
+}
+
+.sort-buttons-container .sort-button {
+    cursor: pointer;
+    border: .05rem solid var(--app-text-support-color);
+    border-radius: .25rem;
+    padding: .325rem .55rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--app-text-support-color);
+    background-color: transparent;
+}
+
+.sort-button.sort-button-active {
+    /* background-color: green; */
+    color: var(--app-primary-color);
+    border: .05rem solid var(--app-primary-color);
+    box-shadow: 0 0 .35rem .075rem var(--app-primary-color);
+}
+
+.sort-button:hover {
+    background: var(--app-primary-color);
+    color: var(--app-title-color);
+}
+
+.sort-button i {
+    font-size: 1.1rem;
 }
 
 
