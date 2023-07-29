@@ -1,4 +1,4 @@
-import moviesStaticData from './data/movieData.js';
+import { movieResultsDummyData, singleMovieDummyData } from './data/movieData.js';
 import { OMDBKey } from "./envData.js";
 
 const LOCAL_STORAGE_APP_STATE_KEY = "MovieBay.AppState";
@@ -29,35 +29,24 @@ const singleMoviePageSearch = async () => {
 
     try {
         const res = await fetch(finalQueryString);
-
         if (res.status === 402 || res.status === 429) {
             console.log("API not reachable, using dummy data instead")
-            receivedPage = moviesStaticData;
+            receivedPage = movieResultsDummyData;
         } else {
             const data = await res.json();
-            console.log("search", data.Search);
 
-            // TODO: Fix this for when 0 results are returned (receivedPage should be equal to []) (This is already being done in the code below the TODO below; find a way to join these two conditions)
-            // if (data.Response === 'False') {
-            //     console.log("Error: ", data.Error);
-            //     displayMovieItems([]);
-            // }
-
-            receivedPage = data;
+            if (data.Response === 'False') {
+                console.log("Error: ", data.Error);
+                receivedPage = [];
+            } else receivedPage = data.Search;
         }
     } catch (error) {
-        console.log(error);
-        console.log("API not reachable, using dummy data instead");
-        receivedPage = moviesStaticData;
+        // console.log(error);
+        console.log("Error: API not reachable, using dummy data instead");
+        receivedPage = movieResultsDummyData;
     }
 
-    console.log("receivedPage", receivedPage);
-
-    // TODO: Check what happens when requests are made with no internet (causing dummy data to be in <receivedPage>, causing receivedPage.Response to be undefined)
-    if (receivedPage.Response === 'False') {
-        console.log("Error: ", receivedPage.Error);
-        return [];
-    } else return receivedPage.Search;
+    return receivedPage;
 }
 
 
@@ -137,7 +126,7 @@ const displayMovieItems = () => {
 
     // If there are no search results, display warning message
     if (movieItems.length === 0) {
-        resultsContainer.innerHTML = 'No movies found!';
+        resultsContainer.innerHTML = '<div class="error-results-container">No movies found!</div>';
         return;
     }
 
@@ -148,7 +137,7 @@ const displayMovieItems = () => {
     if (state.category !== 'all') {
         movieItems = state.searchResults.filter(item => item.Type === state.category);
         if (movieItems.length === 0) {
-            resultsContainer.innerHTML = 'No items in this category!';
+            resultsContainer.innerHTML = '<div class="error-results-container">No items in this category!</div>';
             return;
         }
     }
@@ -200,8 +189,16 @@ const displayMovieItems = () => {
         if (moreItemsIconElement) observer.observe(moreItemsIconElement);
     }
 
-    const clickableItems = document.querySelectorAll(".clickable-item");
+    // If poster image can't be found, load the default poster image instead
+    const loadErrorImage = (event) => {
+        const image = event.target;
+        image.removeEventListener('error', loadErrorImage);
+        image.src = './images/poster-not-found.png';
+    }
+    const imageElements = resultsContainer.querySelectorAll('img');
+    imageElements.forEach(image => image.addEventListener('error', loadErrorImage));
 
+    const clickableItems = document.querySelectorAll(".clickable-item");
     // Store the clicked item's id in localStorage, so that the singlePage.html can get it after loading
     const storeLocalStorage = (event) => {
         const itemId = event.currentTarget.dataset.id;
@@ -310,11 +307,28 @@ const searchMovieById = async () => {
     `;
     loadingContainer.innerHTML = loadingHTML;
 
-    const res = await fetch(finalQueryString);
-    const data = await res.json();
+    let receivedData;
+    try {
+        const res = await fetch(finalQueryString);
+        if (res.status === 402 || res.status === 429) {
+            console.log("API not reachable, using dummy data instead")
+            receivedData = singleMovieDummyData;
+        } else {
+            const data = await res.json();
 
+            if (data.Response === 'False') {
+                console.log("Error: ", data.Error);
+                receivedData = {};
+            } else receivedData = data;
+        }
+    } catch (error) {
+        // console.log(error);
+        console.log("Error: API not reachable, using dummy data instead");
+        receivedData = singleMovieDummyData;
+    }
+    
     loadingContainer.innerHTML = '';
-    state.singleItemInfo = data;
+    state.singleItemInfo = receivedData;
     localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));
     displaySinglePageItem();
 }
@@ -355,7 +369,7 @@ const parseVotesNumber = (votesNumber) => {
 const displaySinglePageItem = () => {
     const item = state.singleItemInfo;
     let singleItemHTMLString;
-    if (item.Response === 'False') singleItemHTMLString = `<h3> Item not found </h3>`;
+    if (Object.keys(item).length === 0) singleItemHTMLString = `<div class="error-single-item-container">Item not found</div>`;
     else {
         let itemRuntime = item.Runtime;
         if (itemRuntime !== "N/A") itemRuntime = parseRuntimeString(item.Runtime);
@@ -369,7 +383,7 @@ const displaySinglePageItem = () => {
                     <div class="single-item-header-details">
                         <span class="single-item-type">${item.Type}</span>
                         <span class="single-item-year">${item.Year}</span>
-                        <span class="single-item-age-rate">${item.Rated}</span>
+                        <span class="single-item-age-rate">${item.Rated !== "N/A" ? item.Rated : "Not Rated"}</span>
                         ${itemRuntime !== 'N/A' ? `<span class="single-item-runtime">${itemRuntime}</span>` : ''}
                     </div>
                 </div>
@@ -378,8 +392,8 @@ const displaySinglePageItem = () => {
                     <div class="single-item-header-rating-info">
                         <i class="fa-solid fa-star"></i>
                         <div class="single-item-header-rating-description">
-                            <div class="item-rating-score"><p>${item.imdbRating}</p><span>/10</span></div>
-                            <p class="item-rating-votes">${votesNumber}</p>
+                            <div class="item-rating-score"><p>${item.imdbRating !== "N/A" ? item.imdbRating : '-'}</p><span>/10</span></div>
+                            <p class="item-rating-votes">${votesNumber !== "N/A" ? votesNumber : '-'}</p>
                         </div>
                     </div>
                 </div>
@@ -387,7 +401,7 @@ const displaySinglePageItem = () => {
             <div class="single-item-description">
                 <img src=${item.Poster} class="single-item-image" alt="${item.Title}">
                 <div class="single-item-info">
-                    <p class="single-item-text">${item.Plot}</p>
+                    <p class="single-item-text">${item.Plot !== "N/A" ? item.Plot : "(No synopsis)"}</p>
                     <div class="single-item-genres">
                         ${item.Genre.split(',').map(genre => `<p>${genre.trim()}</p>`).join('\n')}
                     </div>
@@ -401,7 +415,7 @@ const displaySinglePageItem = () => {
                     </div>` : ''}
                     <div class="single-item-subtitle">
                         <span>Actor${item.Actors.search(',') !== -1 ? 's' : ''}</span>
-                        <p>${item.Actors}</p>
+                        <p>${item.Actors !== "N/A" ? item.Actors : '-'}</p>
                     </div>
                     <div class="single-item-subtitle">
                         <span><i class="fa-solid fa-award"></i></span>
@@ -412,6 +426,15 @@ const displaySinglePageItem = () => {
         </section>`
     }
     singleItemSection.innerHTML = singleItemHTMLString;
+
+    // If poster image can't be found, load the default poster image instead
+    const loadErrorImage = (event) => {
+        const image = event.target;
+        image.removeEventListener('error', loadErrorImage);
+        image.src = './images/poster-not-found.png';
+    }
+    const imageElements = singleItemSection.querySelectorAll('img');
+    imageElements.forEach(image => image.addEventListener('error', loadErrorImage));
 }
 
 
@@ -457,17 +480,13 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
 // TODO:
 //  https://www.youtube.com/watch?v=1VjdxCTBfUI
-// - fix all "TODO"s
 // - Style app
 //      - global: set colors correctly (dark color theme only)
-// - Maybe Diferenciate between "Too many results" and "No movies found" error (example query: "hi")
-// - Check if images in static data are being found (because of path, as new "data" folder was created)
-// - See how to deploy vanilla js app to github pages
 // - Make app responsive
 //      -  Make text in each movie item smaller even from 1200px downwards
+// - See how to deploy vanilla js app to github pages
 // - Hide API in github secrets (which may involve adding webpack and babel to my project)
 //  https://www.syncfusion.com/blogs/post/why-and-how-to-use-webpack-and-babel-with-vanilla-js.aspx
 //  https://medium.com/@kellydsample/challenge-3-run-a-vanilla-js-project-in-your-browser-with-node-791e124aa2c6

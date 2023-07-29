@@ -1,4 +1,4 @@
-const moviesDummyData = [
+export const movieResultsDummyData = [
     {
         Title: 'Thor: The Dark World',
         Year: '2013',
@@ -61,14 +61,47 @@ const moviesDummyData = [
         imdbID: 'tt6257970',
         Type: 'series',
         Poster: './images/item-9.jpg',
-    },
-    {
-        Title: 'Jurassic World Dominion',
-        Year: '2022',
-        imdbID: 'tt8041270',
-        Type: 'movie',
-        Poster: './images/item-10.jpg',
     }
 ];
 
-export default moviesDummyData;
+
+export const singleMovieDummyData = {
+    Actors: "Chris Hemsworth, Natalie Portman, Tom Hiddleston",
+    Awards: "4 wins & 21 nominations",
+    BoxOffice: "$206,362,140",
+    Country: "United States",
+    DVD: "25 Feb 2014",
+    Director: "Alan Taylor",
+    Genre: "Action, Adventure, Fantasy",
+    Language: "English",
+    Metascore: "54",
+    Plot: "When the Dark Elves attempt to plunge the universe into darkness, Thor must embark on a perilous and personal journey that will reunite him with doctor Jane Foster.",
+    Poster: './images/item-1.jpg',
+    Production: "N/A",
+    Rated: "PG-13",
+    Ratings: [
+        {
+            Source: "Internet Movie Database",
+            Value: "6.8/10"
+        },
+        {
+            Source: "Rotten Tomatoes",
+            Value: "66%"
+        },
+        {
+            Source: "Metacritic",
+            Value: "54/100"
+        }
+    ],
+    Released: "08 Nov 2013",
+    Response: "True",
+    Runtime: "112 min",
+    Title: "Thor: The Dark World",
+    Type: "movie",
+    Website: "N/A",
+    Writer: "Christopher L. Yost, Christopher Markus, Stephen McFeely",
+    Year: "2013",
+    imdbID: "tt1981115",
+    imdbRating: "6.8",
+    imdbVotes: "703,639"
+};
