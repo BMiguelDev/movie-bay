@@ -8,26 +8,15 @@
     --app-bg-support-color: rgb(8, 8, 8); 
     --app-title-color: rgb(239, 239, 239);
     --app-text-main-color: rgb(239, 239, 239);
-    --app-text-support-color: rgb(130, 130, 130);
-    --app-primary-color: rgb(93, 160, 253);
-    --app-secondary-color: rgb(78, 10, 97);
-    --app-secondary-color-support: rgb(110, 16, 136);
-    --app-intermediate-color: rgb(187, 216, 241);
-    --app-special-color: rgb(197, 157, 95);
+    --app-text-support-color: rgb(151, 151, 151);
+    --app-primary-color: rgb(196, 152, 87);
+    --app-primary-color-support: rgb(245, 197, 24);
+    --app-secondary-color: rgb(70, 213, 238);
+    --app-secondary-color-support: rgb(27, 115, 136);
+    --app-secondary-color-support-2: rgb(44, 159, 188);
+    --app-intermediate-color: rgb(178, 206, 230);
     --footer-bg-color: rgba(52, 52, 52, 0.982);
     --footer-color: rgb(230, 230, 230);
-
-    /* Color palette ideas to go with the gold one:
-    #4C86A8
-    #477890
-
-    #6564DB
-    #232ED1
-
-    #007991
-    #439A86 
-    
-    rgb(6, 50, 81)*/
 }
 
 
@@ -71,7 +60,7 @@ screen and (max-height: 250px) {
         position: fixed;
         visibility: visible;
         background: var(--app-bg-color);
-        color: var(--app-primary-color);
+        color: var(--app-intermediate-color);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -88,10 +77,10 @@ screen and (max-height: 250px) {
 
 /* Header content */
 header.app_header {
-    background-color: var(--app-secondary-color);
+    background-color: var(--app-secondary-color-support);
     color: var(--app-text-main-color);
     margin: 0;
-    border-bottom: 2px solid var(--app-secondary-color-support);
+    box-shadow: 0 0 .2rem .06rem var(--app-secondary-color);
 }
 
 header.app_header nav {
@@ -99,13 +88,13 @@ header.app_header nav {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 0.7rem 2rem;
+    padding: 0.625rem 2rem;
 }
 
 header.app_header nav h2 {
     margin: 0;
     font-size: 1.5rem;
-    letter-spacing: .2rem;
+    letter-spacing: .15rem;
 }
 
 header.app_header nav h2 a {
@@ -137,6 +126,11 @@ footer .footer_api_description p {
 
 footer .footer_api_description p a {
     color: inherit;
+    transition: all .1s ease-in-out;
+}
+
+footer .footer_api_description p a:hover {
+    color: var(--app-secondary-color);
 }
 
 footer .footer_info {
@@ -177,8 +171,8 @@ footer .footer_info .footer_icon_container a i {
 }
 
 footer .footer_info .footer_icon_container a i:hover {
-    color: var(--footer-bg-color);
-    background-color: var(--footer-color);
+    color: var(--app-secondary-color);
+    translate: 0 -10%;
 }
 
 footer .footer_info .footer_icon_container a:nth-of-type(1) i {
@@ -194,7 +188,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 
 /* Homepage */
 .homepage-container {
-    margin: 4% 2%;
+    margin: 3% 2%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -218,7 +212,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 .homepage-title .homepage-title-underline {
     width: 50%;
     height: 0.15rem;
-    background-color: var(--app-special-color);
+    background-color: var(--app-primary-color);
     margin: 0 auto;
 }
 
@@ -245,9 +239,9 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 }
 
 .search-form .search-input:focus-visible {
-    outline: .05rem solid var(--app-primary-color);
+    outline: .05rem solid var(--app-secondary-color);
     border-right: none;
-    box-shadow: 0 0 .5rem .125rem var(--app-text-support-color);
+    box-shadow: 0 0 .4rem .1rem var(--app-text-support-color);
 }
 
 .search-form button {
@@ -256,7 +250,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: grey;
+    color: var(--app-text-support-color);
     background-color: var(--app-bg-support-color);
     cursor: pointer;
     border: none;
@@ -265,7 +259,18 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 .search-form button i {
     font-size: 1.1rem;
     padding-right: .25rem;
+    transition: all .15s ease-in-out, color .05s ease-in-out;
+}
 
+.search-form button:hover {
+    transition: all .15s ease-in-out;
+    background-color: var(--app-secondary-color-support);
+    color: var(--app-text-main-color);
+    box-shadow: 0 0 .2rem 0.075rem var(--app-secondary-color);
+}
+
+.search-form button:hover i {
+    scale: 1.2;
 }
 
 .loading-container {
@@ -295,9 +300,8 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     font-size: 1.25rem;
 }
 
-
 .categories-container {
-    margin-bottom: 2.75rem;
+    margin-bottom: 2.5rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -312,26 +316,23 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     letter-spacing: .05rem;
     border-radius: 0.5rem;
     padding: 0.325rem .875rem;
-    /* color: var(--app-special-color); */
     color: var(--app-intermediate-color);
     cursor: pointer;
     transition: all 0.25s linear;
-    /* border: .1rem solid var(--app-special-color); */
     border: .1rem solid var(--app-intermediate-color);
-    transition: all .15s linear;
+    transition: all .125s linear;
 }
 
 .category-button.category-button-active { 
-    color: var(--app-primary-color);
-    border: .1rem solid var(--app-primary-color);
-    box-shadow: 0 0 .35rem .075rem var(--app-primary-color);
+    color: var(--app-secondary-color);
+    border: .1rem solid var(--app-secondary-color);
+    box-shadow: 0 0 .35rem .075rem var(--app-secondary-color);
 }
 
 .category-button:not(.category-button-active):hover {
-    background: var(--app-primary-color);
+    background-color: var(--app-secondary-color-support-2);
     color: var(--app-title-color);
 }
-
 
 .sort-buttons-container {
     display: flex;
@@ -353,13 +354,13 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 }
 
 .sort-button.sort-button-active {
-    color: var(--app-primary-color);
-    border: .05rem solid var(--app-primary-color);
-    box-shadow: 0 0 .35rem .075rem var(--app-primary-color);
+    color: var(--app-secondary-color);
+    border: .05rem solid var(--app-secondary-color);
+    box-shadow: 0 0 .35rem .075rem var(--app-secondary-color);
 }
 
 .sort-button:hover {
-    background: var(--app-primary-color);
+    background: var(--app-secondary-color-support-2);
     color: var(--app-title-color);
 }
 
@@ -367,15 +368,13 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     font-size: 1.1rem;
 }
 
-
 .results-container {
-    /* margin: 0 15%; */
     width: 100%;
     padding: 0 15%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 3rem 10%;
+    gap: 2.5rem 10%;
     justify-content: space-evenly;
 }
 
@@ -410,29 +409,29 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     flex-direction: row;
     width: 100%;
     gap: .75rem;
-    border: .05rem solid var(--app-text-support-color);
+    border: .05rem solid var(--app-intermediate-color);
     border-radius: .5rem;
-    box-shadow: .1rem .05rem 1rem .01rem var(--app-text-support-color);
+    box-shadow: .05rem .05rem .75rem .015rem var(--app-secondary-color);
     transition: all .1s ease-in-out;
     cursor: pointer;
     text-decoration: none;
-    max-height: 150px;
+    min-height: 155px;
 }
 
-
 .movie-item:hover {
-    box-shadow: .1rem .05rem .5rem .25rem var(--app-text-support-color);
+    box-shadow: .05rem .05rem .75rem .1rem var(--app-intermediate-color);
 }
 
 .movie-item .clickable-item .movie-item-poster-container {
     height: 150px;
+    align-self: center;
 }
 
 .movie-item a .movie-item-poster {
     object-fit: contain;
     max-width: 112.5px;
     height: 100%;
-    border: 0.2rem solid var(--app-special-color);
+    outline: 3.5px solid var(--app-primary-color);
     border-radius: 0.5rem;
 }
 
@@ -449,7 +448,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     line-height: 1.35rem;
     word-spacing: .11rem;
     letter-spacing: .0125rem;
-    color: var(--app-primary-color);
+    color: var(--app-secondary-color);
     word-wrap: break-word;
 }
 
@@ -470,13 +469,15 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     margin: 0;
     width: fit-content;
     text-align: center;
-    padding: .175rem .75rem;
-    border: 1px solid var(--app-text-support-color);
+    padding: .165rem .75rem .19rem .75rem;
+    border: .1rem solid var(--app-primary-color);
     border-radius: .5rem;
-    color: var(--app-text-support-color);
-    font-size: .85rem;
+    color: var(--app-primary-color);
+    font-size: .785rem;
+    font-weight: bold;
+    letter-spacing: .04rem;
+    text-transform: capitalize;
 }
-
 
 .more-items-wrapper {
     width: 100%;
@@ -485,7 +486,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 }
 
 .more-items-container {
-    border: .15rem solid rgb(86, 86, 86);
+    border: .15rem solid var(--app-text-support-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -496,7 +497,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 
 .more-items-container i {
     font-size: 2.2rem;
-    color: rgb(86, 86, 86);
+    color: var(--app-text-support-color);
 }
 
 
@@ -524,8 +525,8 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     font-size: 0.775rem;
     font-weight: bold;
     text-decoration: none;
-    background-color: var(--app-secondary-color);
-    color: var(--app-title-color);
+    background-color: var(--app-primary-color);
+    color: var(--app-bg-support-color);
     width: fit-content;
     text-decoration: none;
     border-radius: 2rem;
@@ -544,7 +545,8 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 
 .back-button-link p {
     margin: 0;
-    color: var(--app-title-color);
+    font-weight: bold;
+    color: var(--app-bg-support-color);
 }
 
 .single-item-container {
@@ -564,8 +566,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
-    gap: .75rem;
+    gap: .875rem;
 }
 
 .single-item-header {
@@ -584,12 +585,11 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 
 .single-item-header-info h2 {
     font-size: 2.1rem;
-    /* letter-spacing: .125rem; */
     letter-spacing: .05rem;
     font-weight: bold;
     margin: 0;
-    line-height: 2.5rem;
-    color: var(--app-intermediate-color);
+    line-height: 2.35rem;
+    color: var(--app-secondary-color);
 }
 
 .single-item-header-details {
@@ -638,7 +638,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 }
 
 .single-item-header-rating-info i {
-    color: rgb(245, 197, 24);
+    color: var(--app-primary-color-support);
     font-size: 1.35rem;
 }
 
@@ -653,6 +653,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     flex-direction: row;
     align-items: center;
     gap: .15rem;
+    color: var(--app-title-color);
 }
 
 .item-rating-score p {
@@ -677,9 +678,8 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    gap: 12%;
-    /* justify-content: space-between; */
-    border: .05rem solid var(--app-secondary-color);
+    gap: 10%;
+    border: .05rem solid var(--app-intermediate-color);
     border-radius: .25rem 1rem 1rem .25rem;
 }
 
@@ -698,20 +698,16 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     object-fit: contain;
     max-height: 55vh;
     max-width: 45%;
-    border: .15rem solid var(--app-special-color);
+    outline: .2rem solid var(--app-primary-color);
     border-radius: .25rem;
-    /* height: 100%;
-    width: 100%; */
-    /* width: 45% !important; */
+    /* width: 45% */
 }
 
 .single-item-info {
-    /* width: 45%; */
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
     padding: 1.5rem 1rem 1rem 0;
-    /* TODO: Change colors to app's primary and secondary and intermediate colors maybe? */
     color: var(--app-text-main-color);
 }
 
@@ -728,22 +724,24 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 
 .single-item-genres p {
     margin: 0;
-    border: .05rem solid var(--app-text-support-color);
+    color: var(--app-intermediate-color);
+    border: .1rem solid var(--app-intermediate-color);
     border-radius: 2.5rem;
     padding: .25rem .75rem;
     font-weight: 600;
     font-size: .9rem;
+    box-shadow: 0 0 .55rem .025rem var(--app-secondary-color-support);
 }
 
 .single-item-info .single-item-subtitle {
     display: flex;
     flex-direction: row;
-    /* align-items: center; */
     gap: 1rem;
 }
 
 .single-item-info .single-item-subtitle span {
     font-weight: bold;
+    color: var(--app-intermediate-color);
 }
 
 .single-item-info .single-item-subtitle p {
@@ -751,10 +749,9 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 }
 
 .single-item-info .single-item-subtitle span i {
-    color: rgb(228, 187, 40);
+    color: var(--app-primary-color-support);
     font-size: 1.4rem;
 }
-
 
 
 /* Scroll Button Content */
@@ -783,7 +780,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     }
 
     50% {
-        translate: 0 -17.5%;
+        translate: 0 -13.5%;
     }
 
     100% {
@@ -792,12 +789,13 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 }
 
 .scroll-up-container button {
-    color: black;
-    border: .1rem solid black;
-    border-radius: .75rem;
+    color: var(--app-bg-support-color);
+    border: .05rem solid var(--app-secondary-color-support-2);
+    border-radius: .65rem;
     cursor: pointer;
-    padding: .65rem .6rem;
+    padding: .65rem .55rem .65rem .7rem;
     background-color: var(--app-intermediate-color);
+    box-shadow: 0 0 .25rem .01rem var(--app-intermediate-color);
     animation: fadeIn .5s ease-in-out forwards;
 }
 

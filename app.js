@@ -52,13 +52,14 @@ const singleMoviePageSearch = async () => {
 
 const searchMovies = async (searchString) => {
     // If user searches for the same query, do nothing
-    if (searchString === state.searchQuery) return;
+    if (searchString === "" || searchString === state.searchQuery) return;
 
     // Reset state variable to default values
     state.pageNumber = 1;
     state.searchQuery = searchString;
     state.isShowMoreItemsIcon = true;
     state.category = 'all';
+    state.sortOptions = { criteria: "default", direction: "descending" };
 
     // Remove previous state data from localStorage
     window.localStorage.removeItem(LOCAL_STORAGE_APP_STATE_KEY);
@@ -482,8 +483,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // TODO:
 //  https://www.youtube.com/watch?v=1VjdxCTBfUI
-// - Style app
-//      - global: set colors correctly (dark color theme only)
 // - Make app responsive
 //      -  Make text in each movie item smaller even from 1200px downwards
 // - See how to deploy vanilla js app to github pages
