@@ -484,7 +484,13 @@ window.addEventListener('DOMContentLoaded', () => {
 // TODO:
 //  https://www.youtube.com/watch?v=1VjdxCTBfUI
 // - Make app responsive
-//      -  Make text in each movie item smaller even from 1200px downwards
+//      - Make text in each movie item smaller even from 1200px downwards
+//      - From 400px width downwards:
+//          - reduce single-item-container margin to 7.5% or less (also reduce single item font-sizes)
+//          - make search form width 100% in homepage
+//      - From >1200px width and <700px height:
+//          - make single page image not be bound by height
+//      - From <500px width and <550px height, maybe dont bound image by height
 // - See how to deploy vanilla js app to github pages
 // - Hide API in github secrets (which may involve adding webpack and babel to my project)
 //  https://www.syncfusion.com/blogs/post/why-and-how-to-use-webpack-and-babel-with-vanilla-js.aspx
