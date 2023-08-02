@@ -73,6 +73,7 @@ const searchMovies = async (searchString) => {
     resultsContainer.innerHTML = '';
     categoriesContainer.innerHTML = '';
     loadingContainer.innerHTML = loadingHTML;
+    loadingContainer.style.display = 'flex';
 
     const receivedPage = await singleMoviePageSearch();
 
@@ -82,6 +83,7 @@ const searchMovies = async (searchString) => {
     state.searchResults = receivedPage;
     state.pageNumber++;
     loadingContainer.innerHTML = ``;
+    loadingContainer.style.display = 'none';
 
     // Store state data in local storage so when user goes back to homepage, the data persists
     window.localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));
@@ -104,8 +106,6 @@ const searchNextMoviePage = async () => {
     moreItemsLoadingContainer.innerHTML = loadingHTML;  // Add loading spinner to page
 
     const receivedPage = await singleMoviePageSearch();
-
-    console.log("receivedPage: ", receivedPage);
 
     if (receivedPage.length < 10) state.isShowMoreItemsIcon = false;
 
@@ -307,6 +307,7 @@ const searchMovieById = async () => {
         <p>Loading...</p>
     `;
     loadingContainer.innerHTML = loadingHTML;
+    loadingContainer.style.display = 'flex';
 
     let receivedData;
     try {
@@ -329,6 +330,7 @@ const searchMovieById = async () => {
     }
     
     loadingContainer.innerHTML = '';
+    loadingContainer.style.display = 'none';
     state.singleItemInfo = receivedData;
     localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));
     displaySinglePageItem();
@@ -402,7 +404,7 @@ const displaySinglePageItem = () => {
             <div class="single-item-description">
                 <img src=${item.Poster} class="single-item-image" alt="${item.Title}">
                 <div class="single-item-info">
-                    <p class="single-item-text">${item.Plot !== "N/A" ? item.Plot : "(No synopsis)"}</p>
+                    <p class="single-item-text">${item.Plot !== "N/A" ? (item.Plot.length > 230 ? item.Plot.substring(0, 227) + '...' : item.Plot) : "(No synopsis)"}</p>
                     <div class="single-item-genres">
                         ${item.Genre.split(',').map(genre => `<p>${genre.trim()}</p>`).join('\n')}
                     </div>
@@ -418,7 +420,7 @@ const displaySinglePageItem = () => {
                         <span>Actor${item.Actors.search(',') !== -1 ? 's' : ''}</span>
                         <p>${item.Actors !== "N/A" ? item.Actors : '-'}</p>
                     </div>
-                    <div class="single-item-subtitle">
+                    <div class="single-item-subtitle single-item-subtitle-awards">
                         <span><i class="fa-solid fa-award"></i></span>
                         <p>${item.Awards === 'N/A' ? 'No Awards' : item.Awards}</p>
                     </div>
@@ -482,7 +484,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 // TODO:
-//  https://www.youtube.com/watch?v=1VjdxCTBfUI
 // - Make app responsive
 //      - Make text in each movie item smaller even from 1200px downwards
 //      - From 400px width downwards:
@@ -491,6 +492,7 @@ window.addEventListener('DOMContentLoaded', () => {
 //      - From >1200px width and <700px height:
 //          - make single page image not be bound by height
 //      - From <500px width and <550px height, maybe dont bound image by height
+//      - From <400px height and >700px width, new breakpoint to reduce font size and padding of single item
 // - See how to deploy vanilla js app to github pages
 // - Hide API in github secrets (which may involve adding webpack and babel to my project)
 //  https://www.syncfusion.com/blogs/post/why-and-how-to-use-webpack-and-babel-with-vanilla-js.aspx
