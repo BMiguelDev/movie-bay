@@ -158,7 +158,7 @@ const displayMovieItems = () => {
                 </div>
                 <div class="item-info">
                     <div>
-                        <h3>${item.Title.length > 58 ? (item.Title.substring(0, 55) + '...') : item.Title}</h3>
+                        <h3>${item.Title.length > 55 ? (item.Title.substring(0, 53) + '...') : item.Title}</h3>
                         <h4 class="item-info-year">${item.Year}</h4>
                     </div>
                     <p class="item-info-type">${item.Type}</p>
