@@ -50,8 +50,6 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* TODO: Make sure this line below works with mobile screens */
-    min-height: 100vh;
     transition: all 0.1s ease-in-out;
 }
 

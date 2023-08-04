@@ -51,6 +51,10 @@ const singleMoviePageSearch = async () => {
 
 
 const searchMovies = async (searchString) => {
+    // Remove focus from form input right after searching for movie
+    const searchInput = document.querySelector('.search-input');
+    searchInput.blur();
+
     // If user searches for the same query, do nothing
     if (searchString === "" || searchString === state.searchQuery) return;
 
@@ -480,13 +484,21 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     // Single item page logic
     else if (window.location.pathname === '/singlePage.html') searchMovieById();
+
+    // Set <minHeight> of app_container dynamically upon resize
+    const handleResize = () => {
+        const appContainerElement = document.querySelector(".app_container");
+        if(appContainerElement) appContainerElement.style.minHeight = `${window.innerHeight}px`;
+    }
+    window.addEventListener('resize', handleResize);
+    handleResize();
 });
 
 
 // TODO:
-// - See how to deploy vanilla js app to github pages
-// - Hide API in github secrets (which may involve adding webpack and babel to my project)
-//  https://www.syncfusion.com/blogs/post/why-and-how-to-use-webpack-and-babel-with-vanilla-js.aspx
-//  https://medium.com/@kellydsample/challenge-3-run-a-vanilla-js-project-in-your-browser-with-node-791e124aa2c6
-//  https://medium.com/jeremy-gottfrieds-tech-blog/tutorial-how-to-build-a-webpack-app-with-vanilla-js-or-react-72ca2cc7e14
-//  https://stackoverflow.com/questions/30239060/uncaught-referenceerror-process-is-not-defined
+//  - See how to deploy vanilla js app to github pages
+//  - Hide API in github secrets (which may involve adding webpack and babel to my project)
+//   https://www.syncfusion.com/blogs/post/why-and-how-to-use-webpack-and-babel-with-vanilla-js.aspx
+//   https://medium.com/@kellydsample/challenge-3-run-a-vanilla-js-project-in-your-browser-with-node-791e124aa2c6
+//   https://medium.com/jeremy-gottfrieds-tech-blog/tutorial-how-to-build-a-webpack-app-with-vanilla-js-or-react-72ca2cc7e14
+//   https://stackoverflow.com/questions/30239060/uncaught-referenceerror-process-is-not-defined
