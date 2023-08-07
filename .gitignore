@@ -1,2 +1,6 @@
-envData.js
+**/build
+**/dist
 .env
+
+node_modules
+npm-debug.log

@@ -1,11 +1,13 @@
 import { movieResultsDummyData, singleMovieDummyData } from './data/movieData.js';
-import { OMDBKey } from "./envData.js";
+import { OMDBKey } from "../envData.js";
+
+import './styles.css';
 
 const LOCAL_STORAGE_APP_STATE_KEY = "MovieBay.AppState";
 const LOCAL_STORAGE_SINGLE_MOVIE_ID_KEY = "MovieBay.SingleMovieId";
 
-// const OMDB_API_KEY = process.env.OMDB_API_KEY;
-const OMDB_API_KEY = OMDBKey;
+const OMDB_API_KEY = process.env.OMDB_API_KEY;
+// const OMDB_API_KEY = OMDBKey;
 
 let state = {
     pageNumber: 1,
@@ -158,7 +160,7 @@ const displayMovieItems = () => {
         const itemHTMLString = `<article class="movie-item">
             <a class="clickable-item" href="./singlePage.html" data-id=${item.imdbID}>
                 <div class="movie-item-poster-container">
-                    <img class="movie-item-poster" src=${item.Poster === 'N/A' ? './images/poster-not-found.png' : item.Poster} alt="${item.Title}">
+                    <img class="movie-item-poster" src=${item.Poster === 'N/A' ? /* './images/poster-not-found.png' */ require('./images/poster-not-found.png') : item.Poster} alt="${item.Title}">
                 </div>
                 <div class="item-info">
                     <div>
@@ -198,7 +200,8 @@ const displayMovieItems = () => {
     const loadErrorImage = (event) => {
         const image = event.target;
         image.removeEventListener('error', loadErrorImage);
-        image.src = './images/poster-not-found.png';
+        // image.src = './images/poster-not-found.png';
+        image.src = require('./images/poster-not-found.png');
     }
     const imageElements = resultsContainer.querySelectorAll('img');
     imageElements.forEach(image => image.addEventListener('error', loadErrorImage));
@@ -438,7 +441,8 @@ const displaySinglePageItem = () => {
     const loadErrorImage = (event) => {
         const image = event.target;
         image.removeEventListener('error', loadErrorImage);
-        image.src = './images/poster-not-found.png';
+        // image.src = './images/poster-not-found.png';
+        image.src = require('./images/poster-not-found.png');
     }
     const imageElements = singleItemSection.querySelectorAll('img');
     imageElements.forEach(image => image.addEventListener('error', loadErrorImage));
@@ -496,9 +500,21 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 // TODO:
+//  - Make both index.html and singlePage.html work
 //  - See how to deploy vanilla js app to github pages
+//  - Remove .envData file and see if .env is working 100%
+//  - Remove unnecessary npm dependecies, such as "webpack-dev-middleware", "webpack-hot-middleware" and "file-loader"
 //  - Hide API in github secrets (which may involve adding webpack and babel to my project)
+//   https://stackoverflow.com/questions/69726631/why-arent-my-stylesheets-being-included-in-the-webpack-build
+
 //   https://www.syncfusion.com/blogs/post/why-and-how-to-use-webpack-and-babel-with-vanilla-js.aspx
 //   https://medium.com/@kellydsample/challenge-3-run-a-vanilla-js-project-in-your-browser-with-node-791e124aa2c6
 //   https://medium.com/jeremy-gottfrieds-tech-blog/tutorial-how-to-build-a-webpack-app-with-vanilla-js-or-react-72ca2cc7e14
 //   https://stackoverflow.com/questions/30239060/uncaught-referenceerror-process-is-not-defined
+
+
+//  - Fix error on production where submiting form reloads page. 
+//      - Figure out how to run app from build. 
+//      - Do I even need to add a server? I think NOT, just deploy with a similar script as the other ones, pointing to the build folder
+//  - Add dotenv, or webpack config or both or something similar to allow us to use process.env
+//  - Maybe fix favicon or just remove the logo code

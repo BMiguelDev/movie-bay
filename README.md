@@ -6,8 +6,7 @@
 
 #### Check the app: https://bmigueldev.github.io/movie-bay/
 
-###### Note: <br /> - The app's functionality may be hindered by the API's availability <br /> 
-
+###### Note: The app's functionality may be hindered by the API's availability <br /> 
 
 ## App functionalities:
 - Search for a set of movies/series by title, and filter or sort the results
@@ -15,5 +14,6 @@
 
 ## Skills shown in this project:
 - HTML, CSS, Javascript (pure, without additional libraries or frameworks)
+- Webpack Setup and Configuration
 - API Manipulation
 - Responsive Design

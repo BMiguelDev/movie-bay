@@ -256,7 +256,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     scale: 1.2;
 }
 
-.loading-container {
+.loading-container, .loading-container-single-item-page {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -276,11 +276,13 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
 }
 
 .loading-container i,
+.loading-container-single-item-page i,
 .more_items_loading_container i {
     font-size: 1.6rem;
 }
 
 .loading-container p,
+.loading-container-single-item-page p,
 .more_items_loading_container p {
     font-size: 1.25rem;
 }
@@ -388,7 +390,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     border-radius: .5rem;
 }
 
-.movie-item>a {
+.movie-item>.clickable-item {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -411,7 +413,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     align-self: center;
 }
 
-.movie-item a .movie-item-poster {
+.movie-item .clickable-item .movie-item-poster {
     object-fit: contain;
     max-width: 112.5px;
     height: 100%;
@@ -518,6 +520,7 @@ footer .footer_info .footer_icon_container a:nth-of-type(2) i {
     letter-spacing: 0.025rem;
     transition: all 0.1s ease-in-out;
     text-align: center;
+    cursor: pointer;
 }
 
 .back-button-link:hover {
@@ -947,7 +950,7 @@ screen and (max-height: 250px) {
         scale: 1.2;
     }
 
-    .loading-container {
+    .loading-container, .loading-container-single-item-page {
         margin-top: 1.25rem;
         gap: .75rem;
     }
@@ -957,11 +960,13 @@ screen and (max-height: 250px) {
     }
 
     .loading-container i,
+    .loading-container-single-item-page i,
     .more_items_loading_container i {
         font-size: 1.3rem;
     }
 
     .loading-container p,
+    .loading-container-single-item-page p,
     .more_items_loading_container p {
         font-size: .95rem;
     }
@@ -998,6 +1003,10 @@ screen and (max-height: 250px) {
         color: var(--app-text-support-color);
     }
 
+    .sort-button.sort-button-active:hover {
+        color: var(--app-secondary-color);
+    }
+
     .sort-button i {
         font-size: .815rem;
     }
@@ -1028,7 +1037,7 @@ screen and (max-height: 250px) {
         width: 100%;
     }
 
-    .movie-item>a {
+    .movie-item>.clickable-item {
         width: 100%;
         gap: .75rem;
         min-height: 120px;
@@ -1048,7 +1057,7 @@ screen and (max-height: 250px) {
         align-self: center;
     }
 
-    .movie-item a .movie-item-poster {
+    .movie-item .clickable-item .movie-item-poster {
         max-width: 88.75px;
         height: 100%;
         outline: 3.5px solid var(--app-primary-color);
@@ -1398,7 +1407,7 @@ screen and (max-height: 250px) {
         scale: 1.2;
     }
 
-    .loading-container {
+    .loading-container, .loading-container-single-item-page {
         margin-top: 1.25rem;
         gap: .75rem;
     }
@@ -1408,11 +1417,13 @@ screen and (max-height: 250px) {
     }
 
     .loading-container i,
+    .loading-container-single-item-page i,
     .more_items_loading_container i {
         font-size: 1.25rem;
     }
 
     .loading-container p,
+    .loading-container-single-item-page p,
     .more_items_loading_container p {
         font-size: .9rem;
     }
@@ -1449,6 +1460,10 @@ screen and (max-height: 250px) {
         color: var(--app-text-support-color);
     }
 
+    .sort-button.sort-button-active:hover {
+        color: var(--app-secondary-color);
+    }
+
     .sort-button i {
         font-size: .75rem;
     }
@@ -1479,7 +1494,7 @@ screen and (max-height: 250px) {
         width: 100%;
     }
 
-    .movie-item>a {
+    .movie-item>.clickable-item {
         width: 100%;
         gap: .75rem;
         min-height: 110px;
@@ -1499,7 +1514,7 @@ screen and (max-height: 250px) {
         align-self: center;
     }
 
-    .movie-item a .movie-item-poster {
+    .movie-item .clickable-item .movie-item-poster {
         max-width: 81.5px;
         height: 100%;
         outline: 3.5px solid var(--app-primary-color);
@@ -1838,7 +1853,7 @@ screen and (min-height: 500px) and (min-width: 700px) and (max-width: 900px) {
         scale: 1.2;
     }
 
-    .loading-container {
+    .loading-container, .loading-container-single-item-page {
         margin-top: 1.25rem;
         gap: .75rem;
     }
@@ -1848,11 +1863,13 @@ screen and (min-height: 500px) and (min-width: 700px) and (max-width: 900px) {
     }
 
     .loading-container i,
+    .loading-container-single-item-page i,
     .more_items_loading_container i {
         font-size: 1.275rem;
     }
 
     .loading-container p,
+    .loading-container-single-item-page p,
     .more_items_loading_container p {
         font-size: .975rem;
     }
@@ -1887,6 +1904,10 @@ screen and (min-height: 500px) and (min-width: 700px) and (max-width: 900px) {
         color: var(--app-text-support-color);
     }
 
+    .sort-button.sort-button-active:hover {
+        color: var(--app-secondary-color);
+    }
+
     .sort-button i {
         font-size: .825rem;
     }
@@ -1913,7 +1934,7 @@ screen and (min-height: 500px) and (min-width: 700px) and (max-width: 900px) {
         width: 47.5%;
     }
 
-    .movie-item>a {
+    .movie-item>.clickable-item {
         width: 100%;
         gap: .75rem;
         min-height: 115px;
@@ -1933,7 +1954,7 @@ screen and (min-height: 500px) and (min-width: 700px) and (max-width: 900px) {
         align-self: center;
     }
 
-    .movie-item a .movie-item-poster {
+    .movie-item .clickable-item .movie-item-poster {
         max-width: 85px;
         height: 100%;
         outline: 3.5px solid var(--app-primary-color);
@@ -2243,7 +2264,7 @@ screen and (min-height: 250px) and (min-width: 600px) and (max-width: 700px) {
         scale: 1.2;
     }
 
-    .loading-container {
+    .loading-container, .loading-container-single-item-page {
         margin-top: .75rem;
         gap: .75rem;
     }
@@ -2253,11 +2274,13 @@ screen and (min-height: 250px) and (min-width: 600px) and (max-width: 700px) {
     }
 
     .loading-container i,
+    .loading-container-single-item-page i,
     .more_items_loading_container i {
         font-size: 1.2rem;
     }
 
     .loading-container p,
+    .loading-container-single-item-page p,
     .more_items_loading_container p {
         font-size: .9rem;
     }
@@ -2292,6 +2315,10 @@ screen and (min-height: 250px) and (min-width: 600px) and (max-width: 700px) {
         color: var(--app-text-support-color);
     }
 
+    .sort-button.sort-button-active:hover {
+        color: var(--app-secondary-color);
+    }
+
     .sort-button i {
         font-size: .755rem;
     }
@@ -2321,7 +2348,7 @@ screen and (min-height: 250px) and (min-width: 600px) and (max-width: 700px) {
         width: 47.5%;
     }
 
-    .movie-item>a {
+    .movie-item>.clickable-item {
         width: 100%;
         gap: .75rem;
         min-height: 105px;
@@ -2341,7 +2368,7 @@ screen and (min-height: 250px) and (min-width: 600px) and (max-width: 700px) {
         align-self: center;
     }
 
-    .movie-item a .movie-item-poster {
+    .movie-item .clickable-item .movie-item-poster {
         max-width: 77.5px;
         height: 100%;
         outline: 3.5px solid var(--app-primary-color);
@@ -2663,7 +2690,7 @@ screen and (min-height: 500px) and (max-height: 650px) and (min-width: 1200px) {
         scale: 1.2;
     }
 
-    .loading-container {
+    .loading-container, .loading-container-single-item-page {
         margin-top: 1.625rem;
         gap: .875rem;
     }
@@ -2673,11 +2700,13 @@ screen and (min-height: 500px) and (max-height: 650px) and (min-width: 1200px) {
     }
 
     .loading-container i,
+    .loading-container-single-item-page i,
     .more_items_loading_container i {
         font-size: 1.335rem;
     }
 
     .loading-container p,
+    .loading-container-single-item-page p,
     .more_items_loading_container p {
         font-size: 1.115rem;
     }
@@ -2712,6 +2741,10 @@ screen and (min-height: 500px) and (max-height: 650px) and (min-width: 1200px) {
         color: var(--app-text-support-color);
     }
 
+    .sort-button.sort-button-active:hover {
+        color: var(--app-secondary-color);
+    }
+
     .sort-button i {
         font-size: .955rem;
     }
@@ -2738,7 +2771,7 @@ screen and (min-height: 500px) and (max-height: 650px) and (min-width: 1200px) {
         width: 46.25%;
     }
 
-    .movie-item>a {
+    .movie-item>.clickable-item {
         width: 100%;
         gap: .75rem;
         min-height: 135px;
@@ -2758,7 +2791,7 @@ screen and (min-height: 500px) and (max-height: 650px) and (min-width: 1200px) {
         align-self: center;
     }
 
-    .movie-item a .movie-item-poster {
+    .movie-item .clickable-item .movie-item-poster {
         max-width: 97.5px;
         height: 100%;
         outline: 3.5px solid var(--app-primary-color);

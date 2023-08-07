@@ -3,19 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- <link rel="icon" href="../public/favicon.ico" /> -->
+    <!-- <link rel="apple-touch-icon" href="../public/logo192.png" /> -->
+    <link rel="manifest" href="../public/manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Bay</title>
 
-    <!-- Fontawesome cdn -->
+    <!-- Fontawesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="../src/styles.css" />
 </head>
 
 <body>
@@ -26,13 +23,39 @@
             </nav>
         </header>
         <main>
-            <section class="single-page-container">
-                <a class="back-button-link" href="/">
+            <div class="homepage-container">
+                <div class="homepage-title">
+                    <h2>Movie Search</h2>
+                    <div class="homepage-title-underline"></div>
+                </div>
+                <form action="" class="search-form">
+                    <input type="text" class="search-input" placeholder="Enter a Movie Title" />
+                    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+                <!-- Loading Container -->
+                <div class="loading-container" style="display: none;"></div>
+                <!-- Filter Buttons -->
+                <div class="categories-container"></div>
+                <!-- Movie Items -->
+                <div class="results-container">
+                    <div class="empty-results-container">
+                        <i class="fa-regular fa-face-smile"></i>
+                        <p>Movie results will appear here</p>
+                    </div>
+                </div>
+                <!-- Loading Container for Infinite Scrolling -->
+                <div class="more_items_loading_container"></div>
+                <!-- Scroll Up Button Container -->
+                <div class="scroll-up-container"></div>
+            </div>
+
+            <section class="single-page-container" style="display: none;">
+                <a class="back-button-link">
                     <i class="fa-solid fa-left-long"></i>
                     <p>Back</p>
                 </a>
                 <!-- Loading container -->
-                <div class="loading-container" style="display: none;"></div>
+                <div class="loading-container-single-item-page" style="display: none;"></div>
                 <!-- Single Item -->
                 <div class="single-item-container"></div>
             </section>
@@ -60,9 +83,6 @@
             </div>
         </footer>
     </div>
-    <!-- Javascript -->
-    <!-- <script type="module" src="bundle.js"></script> -->
-    <script src="bundle.js"></script>
 </body>
 
 </html>
