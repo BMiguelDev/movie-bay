@@ -1,13 +1,8 @@
 import { movieResultsDummyData, singleMovieDummyData } from './data/movieData.js';
-// import { OMDBKey } from "../envData.js";
-
 import './styles.css';
 
 const LOCAL_STORAGE_APP_STATE_KEY = "MovieBay.AppState";
-// const LOCAL_STORAGE_SINGLE_MOVIE_ID_KEY = "MovieBay.SingleMovieId";
-
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
-// const OMDB_API_KEY = OMDBKey;
 
 let state = {
     appPageShowing: "homepage",
@@ -96,11 +91,8 @@ const searchMovies = async (searchString) => {
     loadingContainer.innerHTML = ``;
     loadingContainer.style.display = 'none';
 
-    // Store state data in local storage so when user goes back to homepage, the data persists
+    // Store state data in local storage so when user refreshes page, the data persists
     window.localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));
-
-    // displayMovieItems();
-    // displayCategoryButtons();
     displayAppPage();
 }
 
@@ -126,19 +118,8 @@ const searchNextMoviePage = async () => {
 
     moreItemsLoadingContainer.innerHTML = '';
 
-    // Store updated state data in local storage so when user goes back to homepage, the data persists
     window.localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));
     displayAppPage();
-}
-
-
-const displayAppPage = () => {
-    changeAppPage();
-
-    if (state.appPageShowing === "homepage") {
-        displayMovieItems();
-        displayCategoryButtons();
-    } else if (state.appPageShowing === "singleItem") displaySinglePageItem();
 }
 
 
@@ -150,6 +131,16 @@ const changeAppPage = () => {
         singlePageContainer.style.display = "block";
         homepageContainer.style.display = "none";
     }
+}
+
+
+const displayAppPage = () => {
+    changeAppPage();
+
+    if (state.appPageShowing === "homepage") {
+        displayMovieItems();
+        displayCategoryButtons();
+    } else if (state.appPageShowing === "singleItem") displaySinglePageItem();
 }
 
 
@@ -185,7 +176,7 @@ const displayMovieItems = () => {
         const itemHTMLString = `<article class="movie-item">
             <div class="clickable-item" data-id=${item.imdbID}>
                 <div class="movie-item-poster-container">
-                    <img class="movie-item-poster" src=${item.Poster === 'N/A' ? /* './images/poster-not-found.png' */ require('./images/poster-not-found.png') : item.Poster} alt="${item.Title}">
+                    <img class="movie-item-poster" src=${item.Poster === 'N/A' ? require('./images/poster-not-found.png') : item.Poster} alt="${item.Title}">
                 </div>
                 <div class="item-info">
                     <div>
@@ -225,7 +216,6 @@ const displayMovieItems = () => {
     const loadErrorImage = (event) => {
         const image = event.target;
         image.removeEventListener('error', loadErrorImage);
-        // image.src = './images/poster-not-found.png';
         image.src = require('./images/poster-not-found.png');
     }
     const imageElements = resultsContainer.querySelectorAll('img');
@@ -239,7 +229,7 @@ const displayMovieItems = () => {
         state.appPageShowing = "singleItem";
 
         if (state.singleItemInfo !== {} && state.singleItemId === state.singleItemInfo.imdbID) {
-            // Store state data in local storage before return out of the function
+            // Store state data in local storage before returning out of the function
             window.localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));
             displayAppPage();
             return;
@@ -299,13 +289,13 @@ const displayCategoryButtons = () => {
     categoriesContainer.innerHTML = categoryButtons + '\n' + sortButtonsHTML;
 
     // Only after dynamically adding the buttons to our page we can select the button elements and add a click event to them
-    const filterButtons = categoriesContainer.querySelectorAll(".category-button");    // We can get the elements from the more specific selection <categoriesContainer> instead of document
+    const filterButtons = categoriesContainer.querySelectorAll(".category-button");
 
     // Function to display items based on their category (using the dataset property of the received event's element)
     const displayCategoryItems = (event) => {
         state.category = event.currentTarget.dataset.id;
         window.localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));    // Update local storage state to match the new category
-        displayAppPage();   // It's necessary to run the displayCategoryButtons again to change the look of the category buttons
+        displayAppPage();
     }
 
     // Filter items after clicking filter button
@@ -322,7 +312,7 @@ const displayCategoryButtons = () => {
         else state.sortOptions = { ...state.sortOptions, criteria: "default" };
 
         window.localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));    // Update local storage state to match the new sort options
-        displayAppPage();   // It's necessary to run the displayCategoryButtons again to change the look of the sort buttons
+        displayAppPage();
     }
 
     sortButtons.forEach(sortButton => {
@@ -333,7 +323,6 @@ const displayCategoryButtons = () => {
 
 const searchMovieById = async () => {
     const movieIdString = state.singleItemId;
-
     let finalQueryString = 'https://www.omdbapi.com/?apikey=' + OMDB_API_KEY + '&i=' + movieIdString;
 
     const loadingContainer = document.querySelector(".loading-container-single-item-page");
@@ -469,7 +458,6 @@ const displaySinglePageItem = () => {
     const loadErrorImage = (event) => {
         const image = event.target;
         image.removeEventListener('error', loadErrorImage);
-        // image.src = './images/poster-not-found.png';
         image.src = require('./images/poster-not-found.png');
     }
     const imageElements = singleItemSection.querySelectorAll('img');
@@ -489,16 +477,8 @@ const toggleScrollUpButton = () => {
 }
 
 
-// After page loads, add event listener and, if necessary, populate page sections with data from local storage
+// Right after page loads, add event listener and, if necessary, populate page sections with existing data from local storage
 window.addEventListener('DOMContentLoaded', () => {
-
-    // The code below would only be necessary if this app was a multi url app
-    // const switchAppPageShowing = () => {
-    //     if(state.appPageShowing === "homepage") state.appPageShowing = "singleItem";
-    //     else if(state.appPageShowing === "singleItem") state.appPageShowing = "homepage";
-    // }
-    // window.addEventListener('beforeunload', switchAppPageShowing);
-
     // If there's state data in local storage, display it as soon as page is open
     const localStorageItem = window.localStorage.getItem(LOCAL_STORAGE_APP_STATE_KEY);
     if (localStorageItem) {
@@ -520,7 +500,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const backButton = document.querySelector(".back-button-link");
     const handleBackButton = () => {
         state.appPageShowing = "homepage";
-        changeAppPage();
 
         // Store state data in local storage so when user refreshes app, the data persists
         window.localStorage.setItem(LOCAL_STORAGE_APP_STATE_KEY, JSON.stringify(state));
@@ -539,15 +518,3 @@ window.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', handleResize);
     handleResize();
 });
-
-
-// TODO:
-//  - See how to deploy vanilla js app to github pages
-//  - Remove unnecessary npm dependecies, such as "webpack-dev-middleware", "webpack-hot-middleware" and "file-loader"
-//  - Remove unnecessary comments from app.js and from movieData.js
-
-//  - Remove .envData file and see if .env is working 100%
-//  - Hide API KEY in github secrets (which may involve adding webpack and babel to my project)
-//  - For production: do I even need to add a server? I think NOT, just deploy with a similar script as the other ones, pointing to the dist folder
-//  - Add dotenv, or webpack config or both or something similar to allow us to use process.env
-//   https://stackoverflow.com/questions/30239060/uncaught-referenceerror-process-is-not-defined

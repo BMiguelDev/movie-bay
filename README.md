@@ -2,7 +2,7 @@
 
 #### This App is a movie search tool. It allows the user to search for movies and series and filter them by type, as well as showing detailed information for each item
 
-#### Developed using HTML, CSS, and Javascript (vanilla)
+#### Developed using HTML, CSS, and Javascript (pure)
 
 #### Check the app: https://bmigueldev.github.io/movie-bay/
 
@@ -10,6 +10,7 @@
 
 ## App functionalities:
 - Search for a set of movies/series by title, and filter or sort the results
+- Keep searching for more movies/series by infinite scrolling
 - Get detailed information about each movie/series item
 
 ## Skills shown in this project:

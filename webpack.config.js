@@ -4,8 +4,6 @@ const dotenv = require('dotenv').config({
     path: path.join(__dirname, '/.env')
 });
 
-// const dotenv = require('dotenv').config();
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerWebpackPlugin = require('css-minimizer-webpack-plugin');
@@ -20,7 +18,6 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, "dist"),
-        // publicPath: '/',
         filename: '[name].[contenthash].js',
         clean: true,     // Remove previous bundle files that have since been changed and aren't being used 
         assetModuleFilename: './images/[name][contenthash][ext]'  // Allow assets (like images) to get specific names when outputted to the "dist" folder
@@ -66,25 +63,12 @@ module.exports = {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource'
             },
-            // Now any images are being required/imported in javascript but webpack still doens't know how to handle/use them 
-            // We need the file-loader to load those images
-            // {
-            //     test: /\.(svg|png|jpg|jpeg|gif)$/i,
-            //     use: {
-            //         loader: "file-loader",
-            //         options: {
-            //             name: "[name][contenthash].[ext]",
-            //             outputPath: "images"
-            //         }
-            //     }
-            // }
         ]
     },
     plugins: [
         // Use "DefinePlugin" to make it possible to use "process.env" inside the application
         new webpack.DefinePlugin({
-            "process.env": JSON.stringify(dotenv.parsed),
-            // 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+            "process.env": JSON.stringify(dotenv.parsed)
         }),
         new HtmlWebpackPlugin({
             title: 'Movie Bay',
@@ -105,11 +89,8 @@ module.exports = {
     ],
     optimization: {
         minimizer: [
-            new CssMinimizerWebpackPlugin(),    // Minimize the outputed css file
-            new TerserPlugin()      // Minimize the outputed js file
+            new CssMinimizerWebpackPlugin(),    // Minimize the outputed CSS file
+            new TerserPlugin()      // Minimize the outputed JS file
         ]
     }
 };
-
-// TODO:
-//  - Remove comments from webpack.config.js
