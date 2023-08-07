@@ -4,7 +4,6 @@ export const movieResultsDummyData = [
         Year: '2013',
         imdbID: 'tt1981115',
         Type: 'movie',
-        // Poster: './images/item-1.jpg',
         Poster: require('../images/item-1.jpg'),
     },
     {
@@ -12,7 +11,6 @@ export const movieResultsDummyData = [
         Year: '2013',
         imdbID: 'tt0816711',
         Type: 'movie',
-        // Poster: './images/item-2.jpg',
         Poster: require('../images/item-2.jpg'),
     },
     {
@@ -20,7 +18,6 @@ export const movieResultsDummyData = [
         Year: '2015',
         imdbID: 'tt0369610',
         Type: 'movie',
-        // Poster: './images/item-3.jpg',
         Poster: require('../images/item-3.jpg'),
     },
     {
@@ -28,7 +25,6 @@ export const movieResultsDummyData = [
         Year: '2010',
         imdbID: 'tt0446029',
         Type: 'movie',
-        // Poster: './images/item-4.jpg',
         Poster: require('../images/item-4.jpg'),
     },
     {
@@ -36,7 +32,6 @@ export const movieResultsDummyData = [
         Year: '1997',
         imdbID: 'tt0119567',
         Type: 'movie',
-        // Poster: './images/item-5.jpg',
         Poster: require('../images/item-5.jpg'),
     },
     {
@@ -44,7 +39,6 @@ export const movieResultsDummyData = [
         Year: '2018',
         imdbID: 'tt4881806',
         Type: 'movie',
-        // Poster: './images/item-6.jpg',
         Poster: require('../images/item-6.jpg'),
     },
     {
@@ -52,7 +46,6 @@ export const movieResultsDummyData = [
         Year: '2003',
         imdbID: 'tt0311113',
         Type: 'movie',
-        // Poster: './images/item-7.jpg',
         Poster: require('../images/item-7.jpg'),
     },
     {
@@ -60,7 +53,6 @@ export const movieResultsDummyData = [
         Year: '1999',
         imdbID: 'tt0143145',
         Type: 'movie',
-        // Poster: './images/item-8.jpg',
         Poster: require('../images/item-8.jpg'),
     },
     {
@@ -68,7 +60,6 @@ export const movieResultsDummyData = [
         Year: '2017-2019',
         imdbID: 'tt6257970',
         Type: 'series',
-        // Poster: './images/item-9.jpg',
         Poster: require('../images/item-9.jpg'),
     }
 ];
@@ -85,7 +76,6 @@ export const singleMovieDummyData = {
     Language: "English",
     Metascore: "54",
     Plot: "When the Dark Elves attempt to plunge the universe into darkness, Thor must embark on a perilous and personal journey that will reunite him with doctor Jane Foster.",
-    // Poster: './images/item-1.jpg',
     Poster: require('../images/item-1.jpg'),
     Production: "N/A",
     Rated: "PG-13",
