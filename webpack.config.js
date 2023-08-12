@@ -51,6 +51,7 @@ module.exports = {
                 use: [
                     isProduction ? MiniCssExtractPlugin.loader : "style-loader",    // 2. If production build, extract css into bundle css file, if development build, inject styles into dom
                     'css-loader',   // 1. Turn css into commonJs
+                    'postcss-loader'    // 1. Parse css for cross-browser compatibility using the autoprefixer dependency to add vendor prefixes for older browsers specified in the "browserslist" property in package.json
                 ]
             },
             // The HTML loader will replace any image's "src" with a require statement for that image's source
